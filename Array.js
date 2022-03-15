@@ -1,3 +1,5 @@
+// By Thinh (Howard) Phung 2022
+
 class myArray {
     constructor() {
       this.length = 0;

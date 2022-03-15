@@ -1,3 +1,5 @@
+// By Thinh (Howard) Phung 2022
+
 class Node {
     constructor(value){
       // The value we pass in

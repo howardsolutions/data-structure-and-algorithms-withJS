@@ -1,3 +1,5 @@
+// By Thinh (Howard) Phung 2022
+
 // BUILDING HASHtable DAta structure
 class HashTable {
     constructor(size) {
