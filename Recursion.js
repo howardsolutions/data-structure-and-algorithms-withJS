@@ -84,3 +84,28 @@ console.log(fibonacciRecursive(4)); // 2
 
 // f(3) = f(2) + f(1) = f(2) + 1 = f(1) + f(0) + 1 = 1 + 1 + 0 = 2
 // f(n) = f(n-1) + f(n-2)
+
+function getNthFib(n) {
+    if (n === 0) return 'Please enter number greater than 0';
+    // if (n === 1) return 0;
+    // if (n === 2) return 1;
+    
+    const lastTwoNum = [0,1];
+    let counter = 3;
+    let nextNum; 
+  
+    while (counter <= n) {
+      nextNum = lastTwoNum[0] + lastTwoNum[1];
+      lastTwoNum[0] = lastTwoNum[1];
+      lastTwoNum[1] = nextNum;
+      counter++;
+    }
+  
+    return n > 1 ? lastTwoNum[1] : lastTwoNum[0];
+  }
+  
+  // time: O(n)
+  // space: O(1)
+  
+  // getNthFib(4) => (3 <= 4) => [1,1]
+  // (4 = 4) => [1,2]
