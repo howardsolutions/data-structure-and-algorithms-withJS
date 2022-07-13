@@ -70,6 +70,7 @@ function fibonacciIterative(n) {
 
   return arr[n];
 }
+// Time: O(n), Space: O(1)
 // console.log(fibonacciIterative(3));
 
 function fibonacciRecursive(n) {
@@ -80,7 +81,10 @@ function fibonacciRecursive(n) {
   return fibonacciRecursive(n - 1) + fibonacciRecursive(n - 2);
 }
 
-console.log(fibonacciRecursive(4)); // 2
+// Time: O(2^n) - exponential
+// Space: O(n)
+
+// console.log(fibonacciRecursive(4)); // 2
 
 // f(3) = f(2) + f(1) = f(2) + 1 = f(1) + f(0) + 1 = 1 + 1 + 0 = 2
 // f(n) = f(n-1) + f(n-2)
