@@ -50,5 +50,34 @@ function swap(array, i, j) {
   array[i] = array[j];
   array[j] = temp;
 }
+// Time: O(n^2) - exponential, space: O(1)
 
-// Time: O(n^2) - exponential,
+//////////////////////////////////////////////
+// Insertion sort: 
+// Conceptual Overview: Divide the input array into 2 subarray, 1 subarray (subarray1) should be sorted all the time. 1 subarray (subarray2) is unsorted
+// keep looping through the unsorted array, and then INSERT the number to correct position in subarray1
+
+// 1. using while loop
+function insertionSort(array) {
+  const length = array.length;
+  for (let i = 1; i < length; i++) {
+    let j = i;
+    while (j > 0 && array[j] < array[j - 1]) {
+      swap(j, j-1, array);
+      j--;
+    }
+  };
+  return array;
+};
+
+// 2. using for loop
+function insertionSort(array) {
+  const length = array.length;
+  for (let i = 1; i < length; i++) {
+    for (let j = i; j > 0; j--) { // j =1 
+      if (array[j] < array[j-1]) swap(j, j -1, array);
+    }
+  };
+
+  return array;
+};
