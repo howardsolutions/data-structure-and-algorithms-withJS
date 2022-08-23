@@ -102,6 +102,22 @@ class Node {
       let rightHeight = this.findHeight(currentNode.right);
       return Math.max(leftHeight, rightHeight) + 1;
     }
+
+    breathFirstSearch() {
+      let currentNode = this;
+      let queue = [];
+      let list = []; // answer 
+      
+      queue.push(currentNode);  
+
+      while (queue.length > 0) {
+        currentNode = queue.shift();
+        list.push(currentNode.value);
+        
+        if (currentNode.left) queue.push(currentNode.left);
+        if (currentNode.right) queue.push(currentNode.right);
+      }
+    }
   }
   
   class BST {
@@ -127,6 +143,16 @@ class Node {
     findHeight() {
       if (this.root) return this.root.findHeight(this.root);
       return -1;
+    }
+    
+    breathFirstSearchR(queue, list) {
+      if (this.root === null) return null;
+      else return this.root.breathFirstSearchR(queue, list);
+    }
+
+    breathFirstSearch() {
+      if (this.root === null) return null;
+      else return this.root.breathFirstSearch();
     }
   };
   
