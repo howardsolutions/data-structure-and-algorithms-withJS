@@ -118,6 +118,20 @@ class Node {
         if (currentNode.right) queue.push(currentNode.right);
       }
     }
+
+    breathFirstSearchR(queue, list) {
+      // base case
+      if (!queue.length) return list;
+      let currentNode = queue.shift();
+
+      list.push(currentNode.value);
+
+      if (currentNode.left) queue.push(currentNode.left);
+      if (currentNode.right) queue.push(currentNode.right);
+
+      // recursive case 
+      return this.breathFirstSearchR(queue, list);
+    }
   }
   
   class BST {
@@ -154,6 +168,11 @@ class Node {
       if (this.root === null) return null;
       else return this.root.breathFirstSearch();
     }
+
+    breathFirstSearchR(queue, list) {
+      if (this.root === null) return null;
+      else return this.root.breathFirstSearchR(queue, list);
+    }
   };
   
   const tree = new BST();
@@ -170,5 +189,7 @@ class Node {
   tree.insert(85)
   tree.delete(25)
   console.log(tree)
+
+  tree.breathFirstSearchR([tree.root], [])
   
   // console.log(tree.find(85))
