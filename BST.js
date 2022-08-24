@@ -189,19 +189,19 @@ class Node {
       return -1;
     }
     
-    breathFirstSearchR(queue, list) {
+    breadthFirstSearchR(queue, list) {
       if (this.root === null) return null;
-      else return this.root.breathFirstSearchR(queue, list);
+      else return this.root.breadthFirstSearchR(queue, list);
     }
 
-    breathFirstSearch() {
+    breadthFirstSearch() {
       if (this.root === null) return null;
-      else return this.root.breathFirstSearch();
+      else return this.root.breadthFirstSearch();
     }
 
-    breathFirstSearchR(queue, list) {
+    breadthFirstSearchR(queue, list) {
       if (this.root === null) return null;
-      else return this.root.breathFirstSearchR(queue, list);
+      else return this.root.breadthFirstSearchR(queue, list);
     }
 
     DFSinOrder() {
@@ -238,6 +238,6 @@ class Node {
   tree.delete(25)
   console.log(tree)
 
-  tree.breathFirstSearchR([tree.root], [])
+  tree.breadthFirstSearchR([tree.root], [])
   
   // console.log(tree.find(85))
