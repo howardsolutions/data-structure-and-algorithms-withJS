@@ -11,12 +11,12 @@ class Node {
       
       } else if (value < this.value) {
         // go left
-        if (!this.left) this.left = new Node(value);
+        if (this.left === null) this.left = new Node(value);
         else this.left.insert(value);
         
       } else if (value > this.value) {
         // go right
-        if (!this.right) this.right = new Node(value);
+        if (this.right === null) this.right = new Node(value);
         else this.right.insert(value);
       }
     };
@@ -132,6 +132,36 @@ class Node {
       // recursive case 
       return this.breathFirstSearchR(queue, list);
     }
+
+    inOrder(currentNode, list) { // LPR
+      if (currentNode) {
+        this.inOrder(currentNode.left, list);
+        list.push(currentNode.value);
+        this.inOrder(currentNode.right, list);
+      }
+  
+      return list;
+    }
+  
+    preOrder(currentNode, list) { // PLR
+      if (currentNode) {
+        list.push(currentNode.value);
+        this.preOrder(currentNode.left, list);
+        this.preOrder(currentNode.right, list);
+      }
+  
+      return list;
+    }
+  
+    postOrder(currentNode, list) { // LRP
+      if (currentNode) {
+        this.postOrder(currentNode.left, list);
+        this.postOrder(currentNode.right, list);
+        list.push(currentNode.value);
+      }
+  
+      return list;
+    }
   }
   
   class BST {
@@ -172,6 +202,24 @@ class Node {
     breathFirstSearchR(queue, list) {
       if (this.root === null) return null;
       else return this.root.breathFirstSearchR(queue, list);
+    }
+
+    DFSinOrder() {
+      if (this.root) {
+        return this.root.inOrder(this.root, []);
+      }
+    };
+  
+    DFSpreOrder() {
+     if (this.root) {
+        return this.root.preOrder(this.root, []);
+      }
+    };
+  
+    DFSpostOrder() {
+      if (this.root) {
+        return this.root.postOrder(this.root, []);
+      }
     }
   };
   
