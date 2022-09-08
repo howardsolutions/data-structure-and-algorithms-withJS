@@ -66,7 +66,7 @@ class Node {
     };
    
     delete(value) {
-      // looking for the node inside the tree 
+      // looking for the node inside the tree
       if (value < this.value && this.left) {
         // left
         this.left = this.left.delete(value);
@@ -77,19 +77,21 @@ class Node {
         // value === this.value
         // find a match, go to work
         // case 1: delete a node have 0 child
-        if (this.left === null && this.right === null) {
-          return null;
-        } else if (this.left) {
-          // case 2: delete a node have 1 child
-          return this.left
-        } else if (this.right) {
-          return this.right
-          // case 3: delete a node have 2 child 
-        } else if (this.right && this.left) {
-          let minVal = this.right.findMin();
-          this.value = minVal;
-          // delete duplicate node
-          this.right = this.right.delete(minVal);
+        if (value === this.value) {
+          if (this.left === null && this.right === null) {
+            return null;
+          } else if (this.left && this.right === null) {
+            // case 2: delete a node have 1 child
+            return this.left;
+          } else if (this.right && this.left === null) {
+            return this.right;
+            // case 3: delete a node have 2 child
+          } else if (this.right && this.left) {
+            let minVal = this.right.findMin();
+            this.value = minVal;
+            // delete duplicate node
+            this.right = this.right.delete(minVal);
+          } 
         }
       }
   
