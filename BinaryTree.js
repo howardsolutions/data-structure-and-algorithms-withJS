@@ -128,3 +128,62 @@ class Node {
   };
   
   // console.log(includesR([a], 'g'));
+
+
+///////////////////////////////////////////////////////
+///// CALCULATE SUM OF THE TREE
+///////////////////////////////////////////////////////
+
+// DFS
+const treeSum = root => {
+	if (root === null) return 0;
+	return root.value + treeSum(root.left) + treeSum(root.right);
+};
+
+// BFS
+const treeSumR = root => {
+  if (root === null) return 0;
+
+  const queue = [root];
+  let totalSum = 0;
+  
+  while (queue.length > 0) {
+    const currentNode = queue.shift();
+    totalSum += currentNode.value;
+
+    if (currentNode.left) queue.push(currentNode.left);
+    if (currentNode.right) queue.push(currentNode.right);
+  }
+
+  return totalSum;
+};
+
+// Min Value in the tree
+// ITERATIVE
+const treeMinVal = root => {
+  const stack = [root];
+  let smallest = root.value;
+  
+  while (stack.length > 0) {
+    const currentNode = stack.pop();
+    if (currentNode.value < smallest) smallest = currentNode.value;
+
+    if (currentNode.right) stack.push(currentNode.right);
+    if (currentNode.left) stack.push(currentNode.left);
+  };
+
+  return smallest;
+};
+
+// console.log(treeMinVal(a));
+
+// RECURSIVE
+const treeMinValR = root => {
+  if (root === null) return Infinity;
+  const leftMin = treeMinValR(root.left);
+  const rightMin = treeMinValR(root.right);
+
+  return Math.min(root.value, leftMin, rightMin);
+}
+
+console.log(treeMinValR(a));
