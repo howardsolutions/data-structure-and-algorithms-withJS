@@ -14,7 +14,6 @@ class MinHeap {
   }
 
   // HELPER HEAP FUNCTIONS
-
   getParentIndex(index) {
     return Math.floor((index - 1) / 2);
   }
@@ -55,5 +54,22 @@ class MinHeap {
     let temp = this.storage[index1];
     this.storage[index1] = this.storage[index2];
     this.storage[index2] = temp;
+  }
+
+  // MAIN METHOD
+  insert(data) {
+    this.storage[this.size] = data;
+    this.size++;
+    this.heapifyUp(data);
+  }
+
+  // iterative version
+  // use to check whether the node currently insert at correct position, if not we do the swap
+  heapifyUp() {
+    let index = this.size - 1;
+    while (this.hasParent(index) && this.parent(index) > this.storage[index]) {
+      this.swap(this.getParentIndex(index), index);
+      index = this.getParentIndex(index);
+    }
   }
 }
