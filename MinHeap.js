@@ -1,10 +1,14 @@
 /* 
   Min heap: Every parent's node value must be smaller than its children nodes value
-  insert value from left to right
+  with both Min Heap or Max Heap -- insert value from left to right
 
-  parent index: (index - 1) / 2
+  parent index: (index - 1) / 2 (calculate using math.floor)
   left child index: 2 * index + 1;
   right child index: 2 * index + 2;
+
+  PROS of HEAP
+  1) Instant access min or max value at constant time
+  2) Useful for priority queues, schedulers (where the earliest item is desired)
 */
 
 class MinHeap {
@@ -13,19 +17,20 @@ class MinHeap {
     this.size = 0;
   }
 
-  // HELPER HEAP FUNCTIONS
+  // COMMON HELPER method
   getParentIndex(index) {
     return Math.floor((index - 1) / 2);
   }
 
   getLeftChildIndex(index) {
-    return index * 2 + 1;
+    return 2 * index + 1;
   }
 
   getRightChildIndex(index) {
-    return index * 2 + 2;
+    return 2 * index + 2;
   }
 
+  // index: index of the node we wanna check is it has a parent?
   hasParent(index) {
     return this.getParentIndex(index) >= 0;
   }
@@ -38,12 +43,13 @@ class MinHeap {
     return this.getRightChildIndex(index) < this.size;
   }
 
+  // HELPER method to get Data from Node
   parent(index) {
     return this.storage[this.getParentIndex(index)];
   }
 
   leftChild(index) {
-    return this.storage[this.getRightChildIndex(index)];
+    return this.storage[this.getLeftChildIndex(index)];
   }
 
   rightChild(index) {
@@ -56,20 +62,35 @@ class MinHeap {
     this.storage[index2] = temp;
   }
 
-  // MAIN METHOD
+  // Insert data to Heap
   insert(data) {
     this.storage[this.size] = data;
     this.size++;
-    this.heapifyUp(data);
+    // heapify up to check whether the node is inserted at correct position?
+    this.heapifyUp();
   }
 
-  // iterative version
-  // use to check whether the node currently insert at correct position, if not we do the swap
   heapifyUp() {
+    // start at the last element inside our heap (the element we just inserted)
     let index = this.size - 1;
+
     while (this.hasParent(index) && this.parent(index) > this.storage[index]) {
-      this.swap(this.getParentIndex(index), index);
+      this.swap(index, this.getParentIndex(index));
+      // get parent of the current Node
       index = this.getParentIndex(index);
+    }
+  }
+
+  insertR(data) {
+    this.storage[this.size] = data;
+    this.size++;
+    this.heapifyUpRecursive(this.size - 1);
+  }
+
+  heapifyUpRecursive(index) {
+    if (this.hasParent(index) && this.parent(index) > this.storage[index]) {
+      swap(this.getParentIndex(index), index);
+      this.heapifyUpRecursive(this.getParentIndex(index));
     }
   }
 }
