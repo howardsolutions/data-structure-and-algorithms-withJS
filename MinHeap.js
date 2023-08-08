@@ -62,7 +62,7 @@ class MinHeap {
     this.storage[index2] = temp;
   }
 
-  // Insert data to Heap
+  // Insert data to Heap (insert at left most position)
   insert(data) {
     this.storage[this.size] = data;
     this.size++;
@@ -93,4 +93,51 @@ class MinHeap {
       this.heapifyUpRecursive(this.getParentIndex(index));
     }
   }
+
+  heapifyDown() {
+    let index = 0;
+
+    // Only check for left child (because it's the complete tree and value must be filled from LEFT to RIGHT)
+    while (this.hasLeftChild(index)) {
+      let smallerChildIndex = this.getLeftChildIndex(index);
+
+      if (
+        this.hasRightChild(index) &&
+        this.rightChild(index) < this.leftChild(index)
+      )
+        smallerChildIndex = this.getRightChildIndex(index);
+
+      if (this.storage[index] < this.storage[smallerChildIndex]) break;
+      else this.swap(index, smallerChildIndex);
+
+      // continue moving down the heap
+      index = smallerIndex;
+    }
+  }
+
+  // remove the root node
+  removeMin() {
+    if (this.size === 0) throw new Error("Empty Heap");
+    let data = this.storage[0];
+    // remove and replace the ROOT element with the LAST element in the heap
+    this.storage[0] = this.storage[this.size - 1];
+    this.size--;
+    // make sure data we replace at the root node are at correct position
+    this.heapifyDown();
+
+    return data;
+  }
+
+  removeMinRecursive() {
+    if (this.size === 0) throw new Error("Empty heap");
+    let data = this.storage[0];
+    this.storage[0] = this.storage[this.size - 1];
+    this.size--;
+
+    this.heapifyDownR(0);
+
+    return data;
+  }
+
+  heapifyDownR(index) {}
 }
