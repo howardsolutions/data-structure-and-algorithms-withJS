@@ -98,6 +98,7 @@ class MinHeap {
     let index = 0;
 
     // Only check for left child (because it's the complete tree and value must be filled from LEFT to RIGHT)
+    // If there is no left child, we cannot have a right child (it'll not valid complete tree)
     while (this.hasLeftChild(index)) {
       let smallerChildIndex = this.getLeftChildIndex(index);
 
@@ -139,5 +140,23 @@ class MinHeap {
     return data;
   }
 
-  heapifyDownR(index) {}
+  heapifyDownR(index) {
+    let smallesIdx = index; // start at root node index = 0;
+    if (
+      this.hasLeftChild(index) &&
+      this.leftChild(index) < this.storage[smallesIdx]
+    )
+      smallesIdx = this.getLeftChildIndex(index);
+    if (
+      this.hasRightChild(index) &&
+      this.rightChild(index) < this.storage[smallesIdx]
+    )
+      smallesIdx = this.getRightChildIndex(index);
+
+    if (smallesIdx !== index) {
+      // either the left or right is smaller than the node we're currently at
+      this.swap(index, smallesIdx);
+      this.heapifyDownR(smallesIdx);
+    }
+  }
 }
