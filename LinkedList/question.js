@@ -10,9 +10,18 @@ const b = new Node("B");
 const c = new Node("C");
 const d = new Node("D");
 
+const e = new Node(1);
+const f = new Node(2);
+const g = new Node(3);
+const k = new Node(4);
+
 a.next = b;
 b.next = c;
 c.next = d;
+
+e.next = f;
+f.next = g;
+g.next = k;
 
 /////////////////////////////////////////////
 /* Linked List Traversal */
@@ -70,3 +79,33 @@ const fillValues = (head, values) => {
 /////////////////////////////////////////////
 /* Linked List VALUES */
 /////////////////////////////////////////////
+
+const linkedListSum = (head) => {
+  let sum = 0;
+  let current = head;
+  while (current) {
+    sum += current.value;
+    current = current.next;
+  }
+
+  return sum;
+};
+
+console.log(linkedListSum(e));
+
+// const linkedListSumR = (head) => {
+//   return calcSum(head, 0);
+// };
+
+// const calcSum = (head, sum) => {
+//   if (head === null) return sum;
+//   sum = sum + head.value;
+//   return calcSum(head.next, sum);
+// };
+
+const linkedListSumR = (head) => {
+  if (head === null) return 0;
+  return head.value + linkedListSumR(head.next);
+};
+
+console.log(linkedListSumR(e));
