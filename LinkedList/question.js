@@ -62,6 +62,7 @@ const linkedListValues = (head) => {
 
 // console.log(linkedListValues(a));
 
+// Time: O(n) Space: O(n) -- need to store function call in the callstack
 const linkedListValuesR = (head) => {
   const values = [];
   fillValues(head, values);
@@ -77,7 +78,7 @@ const fillValues = (head, values) => {
 // console.log(linkedListValuesR(a))
 
 /////////////////////////////////////////////
-/* Linked List VALUES */
+/* Linked List SUM */
 /////////////////////////////////////////////
 
 const linkedListSum = (head) => {
@@ -91,7 +92,7 @@ const linkedListSum = (head) => {
   return sum;
 };
 
-console.log(linkedListSum(e));
+// console.log(linkedListSum(e));
 
 // const linkedListSumR = (head) => {
 //   return calcSum(head, 0);
@@ -108,4 +109,31 @@ const linkedListSumR = (head) => {
   return head.value + linkedListSumR(head.next);
 };
 
-console.log(linkedListSumR(e));
+// console.log(linkedListSumR(e));
+
+/////////////////////////////////////////////
+/* Linked List FIND */
+/////////////////////////////////////////////
+
+// Time: O(n), space: O(1) 
+const linkedListFind = (head, target) => {
+  let current = head;
+
+  while (current !== null) {
+    if (current.value === target) return true;
+    current = current.next;
+  }
+
+  return false;
+};
+
+// console.log(linkedListFind(a, "D"));
+
+// Time: O(n), Space: O(n)
+const linkedListFindR = (head, target) => {
+  if (head === null) return false;
+  if (head.value === target) return true;
+  return linkedListFindR(head.next, target);
+};
+
+console.log(linkedListFindR(a, "C"));
