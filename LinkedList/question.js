@@ -115,7 +115,7 @@ const linkedListSumR = (head) => {
 /* Linked List FIND */
 /////////////////////////////////////////////
 
-// Time: O(n), space: O(1) 
+// Time: O(n), space: O(1)
 const linkedListFind = (head, target) => {
   let current = head;
 
@@ -136,4 +136,35 @@ const linkedListFindR = (head, target) => {
   return linkedListFindR(head.next, target);
 };
 
-console.log(linkedListFindR(a, "C"));
+// console.log(linkedListFindR(a, "C"));
+
+/////////////////////////////////////////////
+/* Get Node VALUE with Given INDEX */
+/////////////////////////////////////////////
+
+// RECURSIVE
+const getNodeValueR = (head, index) => {
+  // base case
+  if (index === 0) return head.value;
+  if (head === null) return null;
+
+  // recursive case
+  return getNodeValue(head.next, index - 1);
+};
+
+// Time: O(n)
+// Space: O(n) -- store function calls on callstack
+
+const getNodeValue = (head, index) => {
+  let current = head;
+
+  while (current) {
+    if (index === 0) return current.value;
+    index--;
+    current = current.next;
+  }
+
+  return null;
+};
+
+// console.log(getNodeValue(e, 1));
