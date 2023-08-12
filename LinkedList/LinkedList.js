@@ -122,7 +122,7 @@ class LinkedList {
 
   reverse() {
     // If the list only have 1 items
-    if (!this.head.next) {
+    if (this.head.next === null) {
       return this.head;
     }
 

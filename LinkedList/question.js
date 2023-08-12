@@ -166,5 +166,36 @@ const getNodeValue = (head, index) => {
 
   return null;
 };
-
 // console.log(getNodeValue(e, 1));
+// Time: O(N), Space: O(1);
+
+/////////////////////////////////////////////
+/* REVERSE LinkedList */
+/////////////////////////////////////////////
+
+const reverseList = (head) => {
+  let current = head;
+  let prev = null;
+
+  while (current) {
+    const next = current.next;
+    current.next = prev;
+    prev = current;
+    current = next;
+  }
+
+  // after reverse the prev is the new head of the linkedlist
+  return prev;
+};
+
+const reverseListR = (prev = null, head) => {
+  if (head === null) return prev;
+  const next = head.next;
+  head.next = prev;
+  return reverseListR(head, next);
+};
+
+reverseListR(null, a);
+
+//       1  <=  2  <=   3
+//                     prev  head    next
