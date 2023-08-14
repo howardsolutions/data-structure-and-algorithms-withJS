@@ -197,5 +197,49 @@ const reverseListR = (prev = null, head) => {
 
 reverseListR(null, a);
 
-//       1  <=  2  <=   3
-//                     prev  head    next
+/////////////////////////////////////////////
+/* ZIPPER LinkedList */
+/////////////////////////////////////////////
+
+// Time: O(min(n, m));
+// Space: O(1);
+
+const zipperLists = (head1, head2) => {
+  let tail = head1;
+  let current1 = head1;
+  let current2 = head2;
+  let count = 0;
+
+  while (current1 && current2) {
+    if (count % 2 === 0) {
+      // even
+      tail.next = current2;
+      current2 = current2.next;
+    } else {
+      // odd
+      tail.next = current1;
+      curren1 = current1.next;
+    }
+
+    tail = tail.next;
+    count++;
+  }
+
+  if (current1) tail.next = current1;
+  if (current2) tail.next = current2;
+
+  return head1;
+};
+
+const zipperListsR = (head1, head2) => {
+  if (head1 === null && head2 === null) return null;
+  if (head1 === null) return head2;
+  if (head2 === null) return head1;
+
+  const next1 = head1.next;
+  const next2 = head2.next;
+  head1.next = head2;
+  head2.next = zipperListsR(next1, next2);
+
+  return head1;
+};
