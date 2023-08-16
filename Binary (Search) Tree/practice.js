@@ -62,3 +62,22 @@ const depthFirstValuesR = (root) => {
 BREADTH FIRST SEARCH : Time O(N), Space O(N)
  */
 ////////////////////////////////////////////
+
+const breadthFirstValue = (root) => {
+  if (root === null) return [];
+  const queue = [root];
+  const results = [];
+
+  while (queue.length > 0) {
+    let current = queue.shift();
+    results.push(current.value);
+
+    if (current.left) queue.push(current.left);
+    if (current.right) queue.push(current.right);
+  }
+
+  return results;
+};
+
+// console.log(breadthFirstValue(a));
+ 
