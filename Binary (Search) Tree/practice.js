@@ -154,3 +154,31 @@ const treeSum = (root) => {
 
   return sum;
 };
+
+////////////////////////////////////////////
+/*
+Tree MIN VALUE : Time O(N), Space O(N)
+ */
+////////////////////////////////////////////
+
+const treeMin = (root) => {
+  const stack = [root];
+  let smallest = Infinity;
+
+  while (stack.length) {
+    const current = stack.pop();
+    if (current.value < smallest) smallest = current.value;
+    if (current.right) stack.push(current.right);
+    if (current.left) stack.push(current.left);
+  }
+
+  return smallest;
+};
+
+const treeMinR = (root) => {
+  if (root === null) return Infinity;
+  const leftMin = treeMinR(root.left);
+  const rightMin = treeMinR(root.right);
+
+  return Math.min(root.value, leftMin, rightMin);
+};
