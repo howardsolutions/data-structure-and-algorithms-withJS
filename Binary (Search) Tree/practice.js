@@ -116,7 +116,7 @@ const treeIncludesDFS = (root, target) => {
   return false;
 };
 
-console.log(treeIncludesDFS(a, "e"));
+// console.log(treeIncludesDFS(a, "e"));
 
 // console.log(treeIncludes(a, "j"));
 
@@ -128,3 +128,29 @@ const treeIncludesR = (root, target) => {
 };
 
 // console.log(treeIncludesR(a, "a"));
+
+////////////////////////////////////////////
+/*
+Tree SUM : Time O(N), Space O(N)
+ */
+////////////////////////////////////////////
+// Recursive using Depth first traversal
+const treeSumR = (root) => {
+  if (root === null) return 0;
+  return root.value + treeSumR(root.left) + treeSumR(root.right);
+};
+
+// Iterative using BF traversal
+const treeSum = (root) => {
+  let sum = 0;
+  const queue = [root];
+
+  while (queue.length) {
+    const current = queue.shift();
+    sum += current.value;
+    if (current.left) queue.push(current.left);
+    if (current.right) queue.push(current.right);
+  }
+
+  return sum;
+};
