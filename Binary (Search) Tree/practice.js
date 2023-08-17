@@ -127,8 +127,6 @@ const treeIncludesR = (root, target) => {
   return treeIncludesR(root.left, target) || treeIncludesR(root.right, target);
 };
 
-// console.log(treeIncludesR(a, "a"));
-
 ////////////////////////////////////////////
 /*
 Tree SUM : Time O(N), Space O(N)
@@ -175,10 +173,41 @@ const treeMin = (root) => {
   return smallest;
 };
 
+const treeMinBF = (root) => {
+  const queue = [root];
+  let smallest = Infinity;
+
+  while (queue.length) {
+    const current = queue.shift();
+    if (current.value < smallest) smallest = current.value;
+    if (current.left) queue.push(current.left);
+    if (current.right) queue.push(current.right);
+  }
+
+  return smallest;
+};
+
 const treeMinR = (root) => {
   if (root === null) return Infinity;
   const leftMin = treeMinR(root.left);
   const rightMin = treeMinR(root.right);
 
   return Math.min(root.value, leftMin, rightMin);
+};
+
+////////////////////////////////////////////
+/*
+Max Root to Leaf Path SUM : Time O(N), Space O(N)
+ */
+////////////////////////////////////////////
+
+const maxPathSum = (root) => {
+  if (root === null) return -Infinity;
+  if (root.left === null && root.right === null) return root.value;
+  const maxChildPathSum = Math.max(
+    maxPathSum(root.left),
+    maxPathSum(root.right)
+  );
+
+  return root.value + maxChildPathSum;
 };
