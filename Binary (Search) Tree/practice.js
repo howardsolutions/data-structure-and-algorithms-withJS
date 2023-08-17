@@ -80,4 +80,51 @@ const breadthFirstValue = (root) => {
 };
 
 // console.log(breadthFirstValue(a));
- 
+
+////////////////////////////////////////////
+/*
+Tree Includes : Time O(N), Space O(N)
+ */
+////////////////////////////////////////////
+
+// BFS
+const treeIncludes = (root, target) => {
+  if (root === null) return false;
+  const queue = [root];
+
+  while (queue.length > 0) {
+    const current = queue.shift();
+    if (current.value === target) return true;
+    if (current.left) queue.push(current.left);
+    if (current.right) queue.push(current.right);
+  }
+
+  return false;
+};
+
+const treeIncludesDFS = (root, target) => {
+  if (root === null) return false;
+  const stack = [root];
+
+  while (stack.length) {
+    const current = stack.pop();
+    if (current.value === target) return true;
+    if (current.right) stack.push(current.right);
+    if (current.left) stack.push(current.left);
+  }
+
+  return false;
+};
+
+console.log(treeIncludesDFS(a, "e"));
+
+// console.log(treeIncludes(a, "j"));
+
+// Recursive Depth First
+const treeIncludesR = (root, target) => {
+  if (root === null) return false;
+  if (root.value === target) return true;
+  return treeIncludesR(root.left, target) || treeIncludesR(root.right, target);
+};
+
+// console.log(treeIncludesR(a, "a"));
