@@ -43,4 +43,16 @@ const sumR2 = (nums) => {
   return nums.shift() + sumR2(nums);
 };
 
-console.log(sumR2([1, 5, 7, -2]));
+// console.log(sumR2([1, 5, 7, -2]));
+
+// Time: O(2^N)
+// Space: O(N)
+
+const fib = (n) => {
+  if (n < 0) throw new Error("invalid index");
+  if (n === 0) return 1;
+  if (n === 1) return 1;
+
+  // recursive case
+  return fib(n - 1) + fib(n - 2);
+};
