@@ -56,3 +56,31 @@ const fib = (n) => {
   // recursive case
   return fib(n - 1) + fib(n - 2);
 };
+
+////////////////////////////////////////////////
+// COMBINATIONS ///////////////////////////////
+////////////////////////////////////////////////
+/**
+  find all posible combination of array's elements
+  Needs: 1) Combinations without the first element 
+        2) Combinations with the first element
+        then merge 1 and 2 together to get the final result
+
+  Time: O(2^N)
+  Space: O(N^2) - store N element on the callstack and with each element store another N-1 extra space for the `rest` Array
+**/
+const combinations = (elements) => {
+  if (elements.length === 0) return [[]];
+  const firstEl = elements[0];
+  const rest = elements.slice(1);
+
+  const combsWithoutFirstEl = combinations(rest);
+  const combsWithFirstEl = combsWithoutFirstEl.map((comb) => [
+    ...comb,
+    firstEl,
+  ]);
+
+  return [...combsWithoutFirstEl, ...combsWithFirstEl];
+};
+
+// console.log(combinations(["a", "b", "c"]));
