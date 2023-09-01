@@ -61,6 +61,8 @@ const fib = (n) => {
 // COMBINATIONS ///////////////////////////////
 ////////////////////////////////////////////////
 /**
+ * Combination is a collection of things where the order is NOT MATTER
+ 
   find all posible combination of array's elements
   Needs: 1) Combinations without the first element 
         2) Combinations with the first element
@@ -71,9 +73,8 @@ const fib = (n) => {
 **/
 const combinations = (elements) => {
   if (elements.length === 0) return [[]];
-  const firstEl = elements[0];
+  const firstEl = elements.at(0);
   const rest = elements.slice(1);
-
   const combsWithoutFirstEl = combinations(rest);
   const combsWithFirstEl = combsWithoutFirstEl.map((comb) => [
     ...comb,
@@ -84,3 +85,29 @@ const combinations = (elements) => {
 };
 
 // console.log(combinations(["a", "b", "c"]));
+
+////////////////////////////////////////////////
+// PERMUTATIONS ///////////////////////////////
+////////////////////////////////////////////////
+
+// Time: O(N!)
+// Space: O(N^2)
+const permutations = (elements) => {
+  if (elements.length === 0) return [[]];
+  const firstEl = elements.at(0);
+  const rest = elements.slice(1);
+
+  const allPermutations = [];
+  const permsWithoutFirst = permutations(rest);
+
+  permsWithoutFirst.forEach((perm) => {
+    for (let i = 0; i <= perm.length; i++) {
+      const permsWithFirst = [...perm.slice(0, i), firstEl, ...perm.slice(i)];
+      allPermutations.push(permsWithFirst);
+    }
+  });
+
+  return allPermutations;
+};
+
+// console.log(permutations(["a", "b", "c"]));
