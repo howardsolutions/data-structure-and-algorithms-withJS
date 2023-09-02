@@ -90,6 +90,14 @@ const combinations = (elements) => {
 // PERMUTATIONS ///////////////////////////////
 ////////////////////////////////////////////////
 
+/* 
+  understanding the patterns: 
+  1) each iterations: take out the First Element
+  2) recursively invoke permutations on the rest of the array until it hits the base case
+  3) recursive function gonna return the `permutations with out first element List`
+  4) Insert the first element into the list at every possible position will create a permutations list at the end.
+*/
+
 // Time: O(N!)
 // Space: O(N^2)
 const permutations = (elements) => {
