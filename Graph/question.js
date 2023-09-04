@@ -1,6 +1,6 @@
 // adjacency list is typically prefer way to present graph information
 const graph = {
-  a: ["c", "b"],
+  a: ["b", "c"],
   b: ["d"],
   c: ["e"],
   d: ["f"],
@@ -30,7 +30,7 @@ const depthFirstPrint = (graph, root) => {
   }
 };
 
-// there is no need to EXPLICIT specify the base case here 
+// there is no need to EXPLICIT specify the base case here
 // in case the node has NO neighbor, the recurive function will not going to executed (base case)
 const depthFirstPrintR = (graph, root) => {
   console.log(root);
@@ -42,4 +42,16 @@ const depthFirstPrintR = (graph, root) => {
 // depthFirstPrint(graph, "a");
 // depthFirstPrintR(graph, "a");
 
-const breadthFirstPrint = (graph, root) => {};
+const breadthFirstPrint = (graph, root) => {
+  const queue = [root];
+  while (queue.length > 0) {
+    const currentNode = queue.shift();
+    console.log(currentNode);
+
+    for (let neighbor of graph[currentNode]) {
+      queue.push(neighbor);
+    }
+  }
+};
+
+// breadthFirstPrint(graph, "a");
