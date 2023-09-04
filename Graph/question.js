@@ -30,6 +30,16 @@ const depthFirstPrint = (graph, root) => {
   }
 };
 
+// there is no need to EXPLICIT specify the base case here 
+// in case the node has NO neighbor, the recurive function will not going to executed (base case)
+const depthFirstPrintR = (graph, root) => {
+  console.log(root);
+  for (let neighbor of graph[root]) {
+    depthFirstPrintR(graph, neighbor);
+  }
+};
+
 // depthFirstPrint(graph, "a");
+// depthFirstPrintR(graph, "a");
 
 const breadthFirstPrint = (graph, root) => {};
