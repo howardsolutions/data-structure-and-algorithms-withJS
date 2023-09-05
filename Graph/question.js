@@ -16,7 +16,6 @@ const graph = {
     DFS: using Stack to keep track the order (LIFO)
 */
 ////////////////////////////////////////////
-
 const depthFirstPrint = (graph, root) => {
   const stack = [root];
 
@@ -55,3 +54,41 @@ const breadthFirstPrint = (graph, root) => {
 };
 
 // breadthFirstPrint(graph, "a");
+
+////////////////////////////////////////////
+/*
+  HAS PATH: graph is Asyclic in this case (no cycle)
+*/
+////////////////////////////////////////////
+
+// Time: O(e) - e = # edges 
+// Space: O(n) - n = # nodes
+ 
+const hasPathDFS = (graph, src, dst) => {
+  if (src === dst) return true;
+
+  for (let neighbor of graph[src]) {
+    if (hasPath(graph, neighbor, dst) === true) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
+const hasPathBFS = (graph, src, dst) => {
+  const queue = [src];
+
+  while (queue.length > 0) {
+    const current = queue.shift();
+    if (current === dst) return true;
+
+    for (let neighbor of graph[current]) {
+      queue.push(neighbor);
+    }
+  }
+
+  return false;
+};
+
+// console.log(hasPathBFS(graph, "a", "f"));
