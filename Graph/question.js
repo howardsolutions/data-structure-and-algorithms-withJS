@@ -61,9 +61,9 @@ const breadthFirstPrint = (graph, root) => {
 */
 ////////////////////////////////////////////
 
-// Time: O(e) - e = # edges 
+// Time: O(e) - e = # edges
 // Space: O(n) - n = # nodes
- 
+
 const hasPathDFS = (graph, src, dst) => {
   if (src === dst) return true;
 
@@ -92,3 +92,52 @@ const hasPathBFS = (graph, src, dst) => {
 };
 
 // console.log(hasPathBFS(graph, "a", "f"));
+////////////////////////////////////////////
+/*
+ Undirected path: Time: O(e), Space: O(n)
+*/
+////////////////////////////////////////////
+
+// Edges:  the connection between 2 nodes (vertext)
+const edges = [
+  ["i", "j"],
+  ["k", "i"],
+  ["m", "k"],
+  ["k", "l"],
+  ["o", "n"],
+];
+
+const undirectedPath = (edges, nodeA, nodeB) => {
+  const graph = buildGraph(edges);
+  return hasPathUndirected(graph, nodeA, nodeB, new Set());
+};
+
+function hasPathUndirected(graph, src, dst, visited) {
+  if (src === dst) return true;
+  if (visited.has(src)) return false;
+
+  visited.add(src);
+
+  for (let neighbor of graph[src]) {
+    if (hasPathUndirected(graph, neighbor, dst, visited)) return true;
+  }
+
+  return false;
+}
+
+// build graph out of an edges list
+function buildGraph(edges) {
+  const graph = {};
+
+  for (let edge of edges) {
+    const [a, b] = edge;
+    if (!(a in graph)) graph[a] = [];
+    if (!(b in graph)) graph[b] = [];
+    graph[a].push(b);
+    graph[b].push(a);
+  }
+
+  return graph;
+}
+
+// console.log(undirectedPath(edges, "i", "l"));
