@@ -110,17 +110,17 @@ const edges = [
 
 const undirectedPath = (edges, nodeA, nodeB) => {
   const graph = buildGraph(edges);
-  return hasPathUndirected(graph, nodeA, nodeB, new Set());
+  return hasUndirectedPath(graph, nodeA, nodeB, new Set());
 };
 
-function hasPathUndirected(graph, src, dst, visited) {
+function hasUndirectedPath(graph, src, dst, visited) {
   if (src === dst) return true;
   if (visited.has(src)) return false;
 
   visited.add(src);
 
   for (let neighbor of graph[src]) {
-    if (hasPathUndirected(graph, neighbor, dst, visited)) return true;
+    if (hasUndirectedPath(graph, neighbor, dst, visited)) return true;
   }
 
   return false;
@@ -146,6 +146,9 @@ function buildGraph(edges) {
 /*
  (connected components) count
  take in an adjecency list represent an undirected graph
+
+ mechanism: need iterative code does traversal through some component as far as 
+ possible, then also need some iterative code just to potentially begin traversal at every starting point (neighbor node)
 */
 ////////////////////////////////////////////
 
@@ -185,3 +188,33 @@ const explore = (graph, current, visited) => {
 };
 
 // console.log(connectedComponentsCount(graphData));
+////////////////////////////////////////////
+/* 
+  Largest Components
+*/
+////////////////////////////////////////////
+
+const largestComponent = (graph) => {
+  let longest = 0;
+  const visited = new Set();
+
+  for (let node in graph) {
+    const size = exploreSize(graph, node, visited);
+    if (size > longest) longest = size;
+  }
+
+  return longest;
+};
+
+const exploreSize = (graph, node, visited) => {
+  if (visited.has(node)) return 0;
+  visited.add(node);
+
+  let size = 1;
+
+  for (let neighbor of graph[node]) {
+    size += exploreSize(graph, neighbor, visited);
+  }
+
+  return size;
+};
