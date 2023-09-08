@@ -100,13 +100,13 @@ const hasPathBFS = (graph, src, dst) => {
 ////////////////////////////////////////////
 
 // Edges:  the connection between 2 nodes (vertext)
-const edges = [
-  ["i", "j"],
-  ["k", "i"],
-  ["m", "k"],
-  ["k", "l"],
-  ["o", "n"],
-];
+// const edges = [
+//   ["i", "j"],
+//   ["k", "i"],
+//   ["m", "k"],
+//   ["k", "l"],
+//   ["o", "n"],
+// ];
 
 const undirectedPath = (edges, nodeA, nodeB) => {
   const graph = buildGraph(edges);
@@ -127,19 +127,19 @@ function hasUndirectedPath(graph, src, dst, visited) {
 }
 
 // build graph out of an edges list
-function buildGraph(edges) {
-  const graph = {};
+// function buildGraph(edges) {
+//   const graph = {};
 
-  for (let edge of edges) {
-    const [a, b] = edge;
-    if (!(a in graph)) graph[a] = [];
-    if (!(b in graph)) graph[b] = [];
-    graph[a].push(b);
-    graph[b].push(a);
-  }
+//   for (let edge of edges) {
+//     const [a, b] = edge;
+//     if (!(a in graph)) graph[a] = [];
+//     if (!(b in graph)) graph[b] = [];
+//     graph[a].push(b);
+//     graph[b].push(a);
+//   }
 
-  return graph;
-}
+//   return graph;
+// }
 
 // console.log(undirectedPath(edges, "i", "l"));
 ////////////////////////////////////////////
@@ -218,3 +218,66 @@ const exploreSize = (graph, node, visited) => {
 
   return size;
 };
+
+////////////////////////////////////////////
+/* 
+  SHORTEST PATH
+  patterns: using BFS traversal using Queue
+*/
+////////////////////////////////////////////
+/**
+ * Finding shortest path from nodeA to nodeB inside a graph (undirected, cyclic, unweighted)
+ * @param {Array} edges - list represent relationship between node => need to turn it into a graph (adjacency list is my prefer)
+ * @param {string} nodeA - starting point
+ * @param {string} nodeB - destination you're looking for
+ * @return {Number} - the shortest path, if cant find the shortest, this fn will explicit return -1
+ */
+
+const shortestPath = (edges, nodeA, nodeB) => {
+  // turn edges list into a graph
+  const graph = buildGraph(edges);
+  // using Set to mark the Node as visisted - in order to avoid infinite loop
+  const visited = new Set([nodeA]);
+
+  // using Queue make sense, BFS
+  const queue = [[nodeA, 0]];
+
+  while (queue.length) {
+    const [node, distance] = queue.shift();
+
+    if (node === nodeB) return distance;
+
+    for (let neighbor of graph[node]) {
+      if (visited.has(neighbor)) break;
+
+      visited.add(neighbor);
+      queue.push([neighbor, distance + 1]);
+    }
+  }
+
+  return -1;
+};
+
+const buildGraph = (edges) => {
+  const graph = {};
+
+  for (const edge of edges) {
+    const [a, b] = edge;
+    if (!(a in graph)) graph[a] = [];
+    if (!(b in graph)) graph[b] = [];
+    graph[a].push(b);
+    graph[b].push(a);
+  }
+
+  return graph;
+};
+
+const edges = [
+  ["w", "x"],
+  ["x", "y"],
+  ["z", "y"],
+  ["z", "v"],
+  ["w", "v"],
+];
+
+// console.log(shortestPath(edges, "w", "z"));
