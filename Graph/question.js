@@ -1,9 +1,9 @@
 // adjacency list is typically prefer way to present graph information
 const graph = {
-  a: ["b", "c"],
-  b: ["d"],
-  c: ["e"],
-  d: ["f"],
+  a: ['b', 'c'],
+  b: ['d'],
+  c: ['e'],
+  d: ['f'],
   e: [],
   f: [],
 };
@@ -68,7 +68,7 @@ const hasPathDFS = (graph, src, dst) => {
   if (src === dst) return true;
 
   for (let neighbor of graph[src]) {
-    if (hasPath(graph, neighbor, dst) === true) {
+    if (hasPathDFS(graph, neighbor, dst) === true) {
       return true;
     }
   }
@@ -233,6 +233,14 @@ const exploreSize = (graph, node, visited) => {
  * @return {Number} - the shortest path, if cant find the shortest, this fn will explicit return -1
  */
 
+const edges = [
+  ['w', 'x'],
+  ['x', 'y'],
+  ['z', 'y'],
+  ['z', 'v'],
+  ['w', 'v'],
+];
+
 const shortestPath = (edges, nodeA, nodeB) => {
   // turn edges list into a graph
   const graph = buildGraph(edges);
@@ -248,7 +256,7 @@ const shortestPath = (edges, nodeA, nodeB) => {
     if (node === nodeB) return distance;
 
     for (let neighbor of graph[node]) {
-      if (visited.has(neighbor)) break;
+      if (visited.has(neighbor)) continue;
 
       visited.add(neighbor);
       queue.push([neighbor, distance + 1]);
@@ -272,12 +280,23 @@ const buildGraph = (edges) => {
   return graph;
 };
 
-const edges = [
-  ["w", "x"],
-  ["x", "y"],
-  ["z", "y"],
-  ["z", "v"],
-  ["w", "v"],
+////////////////////////////////////////////
+/* 
+  ISLAND Count
+*/
+////////////////////////////////////////////
+
+const grid = [
+  ['W', 'L', 'W', 'W', 'W'],
+  ['W', 'L', 'W', 'W', 'W'],
+  ['W', 'W', 'W', 'L', 'W'],
+  ['W', 'W', 'L', 'L', 'W'],
+  ['L', 'W', 'W', 'L', 'L'],
+  ['L', 'L', 'W', 'W', 'W'],
 ];
 
-// console.log(shortestPath(edges, "w", "z"));
+function isLandCount(grid) {
+  for (let r = 0; r < grid.length; r++) {
+    for (let c = 0; c < grid.length; c++) {}
+  }
+}

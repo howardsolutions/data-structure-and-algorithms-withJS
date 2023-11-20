@@ -135,13 +135,13 @@ class Node {
 ///////////////////////////////////////////////////////
 
 // DFS
-const treeSum = root => {
+const treeSumR = root => {
 	if (root === null) return 0;
-	return root.value + treeSum(root.left) + treeSum(root.right);
+	return root.value + treeSumR(root.left) + treeSumR(root.right);
 };
 
 // BFS
-const treeSumR = root => {
+const treeSum = root => {
   if (root === null) return 0;
 
   const queue = [root];
