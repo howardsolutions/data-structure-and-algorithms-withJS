@@ -241,19 +241,19 @@ const edges = [
   ['w', 'v'],
 ];
 
-const shortestPath = (edges, nodeA, nodeB) => {
+const shortestPath = (edges, srcNode, dstNode) => {
   // turn edges list into a graph
   const graph = buildGraph(edges);
   // using Set to mark the Node as visisted - in order to avoid infinite loop
-  const visited = new Set([nodeA]);
+  const visited = new Set([srcNode]);
 
   // using Queue make sense, BFS
-  const queue = [[nodeA, 0]];
+  const queue = [[srcNode, 0]];
 
   while (queue.length) {
     const [node, distance] = queue.shift();
 
-    if (node === nodeB) return distance;
+    if (node === dstNode) return distance;
 
     for (let neighbor of graph[node]) {
       if (visited.has(neighbor)) continue;
@@ -297,6 +297,10 @@ const grid = [
 
 function isLandCount(grid) {
   for (let r = 0; r < grid.length; r++) {
-    for (let c = 0; c < grid.length; c++) {}
+    for (let c = 0; c < grid.at(0).length; c++) {
+      explore();
+    }
   }
 }
+
+function explore() {}
