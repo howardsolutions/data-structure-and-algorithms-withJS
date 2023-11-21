@@ -296,11 +296,38 @@ const grid = [
 ];
 
 function isLandCount(grid) {
-  for (let r = 0; r < grid.length; r++) {
-    for (let c = 0; c < grid.at(0).length; c++) {
-      explore();
+  const visisted = new Set();
+
+  let count = 0;
+
+  for (let row = 0; row < grid.length; row++) {
+    for (let column = 0; column < grid.at(0).length; column++) {
+      if (exploreIsLand(grid, row, column, visisted) === true) {
+        count++;
+      }
     }
   }
+
+  return count;
 }
 
-function explore() {}
+function exploreIsLand(grid, row, column, visisted) {
+  const rowInBounds = row >= 0 && row < grid.length;
+  const columnInBounds = column >= 0 && column < grid.length;
+
+  if (!rowInBounds || !columnInBounds) return false;
+
+  if (grid[row][column] === 'W') return false;
+
+  const position = row + ',' + column;
+  if (visisted.has(position)) return false;
+
+  visisted.add(position);
+
+  explore(grid, row - 1, column, visisted);
+  explore(grid, row + 1, column, visisted);
+  explore(grid, row, column - 1, visisted);
+  explore(grid, row, column + 1, visisted);
+
+  return true;
+}
